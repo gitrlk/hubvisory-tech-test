@@ -11,4 +11,11 @@ export const getMovies = async () => {
   return movieArray.filter((movie) => movie.original_language === "en");
 };
 
+export const getMoviePoster = async (movieId) => {
+  const fetchMoviePosterFilePath = `/movie/${movieId}/images?api_key=${process.env.REACT_APP_API_KEY}`;
+  const posterBaseUrl = "https://image.tmdb.org/t/p/w300";
+  const posterFilePath = await axios.get(fetchMoviePosterFilePath);
+  const poster = posterBaseUrl + posterFilePath.data.posters[0].file_path;
+
+  return poster;
 };
