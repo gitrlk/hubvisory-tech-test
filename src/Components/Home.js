@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getMovies } from "../API/movies";
+import Questions from './Questions'
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -12,7 +12,9 @@ function Home() {
     fetchMovies();
   }, []);
 
-  return <div>{}</div>;
+  return <div>
+    <Questions />
+  </div>;
 }
 
 export default Home;
