@@ -31,4 +31,11 @@ export const getActorsFromMovie = async (movieId) => {
   return mainActors;
 };
 
+export const getActorPhoto = async (actorId) => {
+  const fetchActorPicture = `person/${actorId}/images?api_key=${process.env.REACT_APP_API_KEY}`;
+  const actorPictureBaseUrl = "https://image.tmdb.org/t/p/w300";
+  const actorPictureData = await axios.get(fetchActorPicture);
+  const actorPictureFilePathUrl =
+    actorPictureBaseUrl + actorPictureData.data.profiles[0].file_path;
+  return actorPictureFilePathUrl;
 };
