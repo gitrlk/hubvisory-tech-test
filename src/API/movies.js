@@ -20,4 +20,15 @@ export const getMoviePoster = async (movieId) => {
   return posterFilePathUrl;
 };
 
+export const getActorsFromMovie = async (movieId) => {
+  const fetchActors = `/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en_US`;
+  const request = await axios.get(fetchActors);
+  const mainActors = [];
+  const actorNumber = 2;
+  for (let i = 0; i < actorNumber; i++) {
+    mainActors.push(request.data.cast[i]);
+  }
+  return mainActors;
+};
+
 };
