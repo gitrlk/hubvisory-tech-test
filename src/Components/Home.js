@@ -8,10 +8,12 @@ function Home() {
   useEffect(() => {
     async function fetchMovies() {
       const movieArray = await getMovies();
+
       setMovies(movieArray);
     }
     fetchMovies();
   }, []);
+
 
   return (
     <div>
