@@ -7,6 +7,10 @@ function Questions({ answer, actor, movie  }) {
       {actor && movie ? (
         <div>
           <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
+          <div style={{display: "flex"}}>
+            <img src={imageBaseUrl + movie.posterPaths[0].file_path} alt="movie"></img>
+            <img src={imageBaseUrl + actor.profilePicturePath} alt="actor"></img>
+          </div>
           <p>
             Did {actor.name} play in {movie.title} ?
           </p>
