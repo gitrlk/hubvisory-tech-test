@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Questions from "./Questions";
 import { fillMovieBuffer, getAllMovies } from "../Modules/parsing";
 import { Movie } from "../Models/movie";
@@ -10,6 +10,7 @@ function Home() {
   const [actor, setActor] = useState(new Actor());
   const [answer, setAnswer] = useState(false);
   const [buffer, setBuffer] = useState([] as Movie[]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -24,10 +25,8 @@ function Home() {
     fetchAllMovies();
   }, []);
 
-  // console.log(buffer);
-
   useEffect(() => {
-    if (buffer.length && buffer.length !== 2) {
+    if (movies.length && buffer.length !== 2) {
       fillMovieBuffer(setMovies, movies, setBuffer, buffer);
     }
     if (buffer.length === 2) {
@@ -43,10 +42,19 @@ function Home() {
     }
   }, [buffer]);
 
+  const handleAnswer = (userAnswerValue: boolean) => {
+    if (answer === userAnswerValue) setScore(score + 10);
+    setBuffer([] as Movie[])
+    setActor(new Actor())
+    setMovie(new Movie())
+  };
+
   return (
     <div>
+      <h1>Your score : {score}</h1>
+      <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
       {actor.name && movie.title ? (
-        <Questions answer={answer} actor={actor} movie={movie} />
+        <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
       ) : null}
     </div>
   );
