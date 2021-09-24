@@ -3,7 +3,7 @@ import { Actor } from "./actor";
 export class Movie {
   id: number;
   title: string;
-  posterPaths: string[];
+  posterPath: string;
   actor: Actor;
   castIdList: number[];
   constructor(
@@ -11,12 +11,12 @@ export class Movie {
     title = "",
     castIdList = [],
     actor = new Actor(),
-    posterPaths = []
+    posterPath = "",
   ) {
     this.id = id;
     this.title = title;
     this.castIdList = castIdList;
     this.actor = actor;
-    this.posterPaths = posterPaths;
+    this.posterPath = posterPath;
   }
 }

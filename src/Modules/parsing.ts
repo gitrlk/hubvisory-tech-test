@@ -10,7 +10,7 @@ import { Actor } from "../Models/actor";
 import { Movie } from "../Models/movie";
 
 export const getAllMovies = async () => {
-  const pageQuantity = 7;
+  const pageQuantity = 15;
   var allMovies: any = [];
 
   for (let i = 0; i < pageQuantity; i++) {
@@ -80,11 +80,13 @@ export const getMovieData = async (movie: Movie): Promise<Movie> => {
   let movieData: Movie = new Movie();
   const castObjects = await getCast(movie.id);
   const castIdList = castObjects.map((object: any) => object.id);
+  const posterPaths = await getMoviePosters(movie.id);
 
   movieData.castIdList = castIdList;
   movieData.id = movie.id;
   movieData.title = movie.title;
-  movieData.posterPaths = await getMoviePosters(movie.id);
+
+  movieData.posterPath = posterPaths[0].file_path;
 
   movieData.actor = await getActorData(movieData.castIdList[0]);
 
