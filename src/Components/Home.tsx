@@ -26,7 +26,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (buffer.length && buffer.length !== 2) {
+    if (movies.length && buffer.length !== 2) {
       fillMovieBuffer(setMovies, movies, setBuffer, buffer);
     }
     if (buffer.length === 2) {
@@ -44,6 +44,9 @@ function Home() {
 
   const handleAnswer = (userAnswerValue: boolean) => {
     if (answer === userAnswerValue) setScore(score + 10);
+    setBuffer([] as Movie[])
+    setActor(new Actor())
+    setMovie(new Movie())
   };
 
   return (
