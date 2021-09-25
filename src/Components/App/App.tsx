@@ -8,6 +8,8 @@ import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
 import "./App.css";
 
+const highScoreFromLocalStorage = localStorage.getItem('highScore') || 0
+
 function App() {
   const [movies, setMovies] = useState([] as Movie[]);
   const [movie, setMovie] = useState(new Movie());
@@ -15,7 +17,7 @@ function App() {
   const [answer, setAnswer] = useState(false);
   const [buffer, setBuffer] = useState([] as Movie[]);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(highScoreFromLocalStorage);
   const [timer, setTimer] = useState(0);
   const [didGameStart, setDidGameStart] = useState(false);
   const [didGameEnd, setDidGameEnd] = useState(false);
@@ -55,17 +57,25 @@ function App() {
     var bufferTmp = [...buffer];
     bufferTmp.splice(0, 2);
     setBuffer(bufferTmp);
-    setActor(new Actor());
-    setMovie(new Movie());
-  };
+};
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (!timer && didGameStart) {
       setDidGameEnd(true);
-      if (!highScore) setHighScore(score);
-      else if (highScore)
-        score > highScore ? setHighScore(score) : setHighScore(highScore);
+      if (!highScore)
+      {
+        setHighScore(score);
+        localStorage.setItem('highScore', JSON.stringify(score))
+      } 
+      else if (highScore) {
+        if (score > highScore){
+          setHighScore(score)
+          localStorage.setItem('highScore', JSON.stringify(score))
+        } else {
+          setHighScore(highScore);
+        }
+      }
     }
   }, [timer]);
 
@@ -92,7 +102,7 @@ function App() {
       {actor.name && movie.title && didGameStart && !didGameEnd ? (
         <div>
           <SessionInfos score={score} highScore={highScore} timer={timer} />
-          <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
+          <Question handleAnswer={handleAnswer} actor={actor} movie={movie} />
         </div>
       ) : null}
       {didGameEnd ? (
