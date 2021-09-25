@@ -1,5 +1,3 @@
-import React from "react";
-
 type WelcomeProps = {
   startGame: () => void;
 };
