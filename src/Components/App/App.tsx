@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Questions from "../Question/Questions";
 import GameOver from "../GameOver/GameOver";
 import Welcome from "../Welcome/Welcome";
+import SessionInfos from "../SessionInfos/SessionInfos";
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
@@ -14,6 +15,7 @@ function App() {
   const [answer, setAnswer] = useState(false);
   const [buffer, setBuffer] = useState([] as Movie[]);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
   const [timer, setTimer] = useState(0);
   const [didGameStart, setDidGameStart] = useState(false);
   const [didGameEnd, setDidGameEnd] = useState(false);
@@ -59,7 +61,12 @@ function App() {
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
-    if (!timer && didGameStart) setDidGameEnd(true);
+    if (!timer && didGameStart) {
+      setDidGameEnd(true);
+      if (!highScore) setHighScore(score);
+      else if (highScore)
+        score > highScore ? setHighScore(score) : setHighScore(highScore);
+    }
   }, [timer]);
 
   const startGame = () => {
@@ -74,7 +81,7 @@ function App() {
     setMovie(new Movie());
     setActor(new Actor());
     setAnswer(false);
-    setDidGameEnd(false)
+    setDidGameEnd(false);
     setScore(0);
     setTimer(60);
   };
@@ -84,13 +91,13 @@ function App() {
       {!didGameStart ? <Welcome startGame={startGame} /> : null}
       {actor.name && movie.title && didGameStart && !didGameEnd ? (
         <div>
-          <h1>Your score : {score}</h1>
-          <h2>{timer} seconds left</h2>
-          <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
+          <SessionInfos score={score} highScore={highScore} timer={timer} />
           <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
         </div>
       ) : null}
-      {didGameEnd ? <GameOver playAgain={playAgain} score={score} /> : null}
+      {didGameEnd ? (
+        <GameOver playAgain={playAgain} score={score} highScore={highScore} />
+      ) : null}
     </div>
   );
 }
