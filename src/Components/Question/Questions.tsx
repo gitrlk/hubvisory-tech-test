@@ -1,5 +1,5 @@
-import { Actor } from "../Models/actor";
-import { Movie } from "../Models/movie";
+import { Actor } from "../../Models/actor";
+import { Movie } from "../../Models/movie";
 
 type QuestionsProps = {
   handleAnswer: (answer: boolean) => void;
