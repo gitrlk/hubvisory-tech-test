@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import Questions from "./Questions";
-import { fillMovieBuffer, getAllMovies } from "../Modules/parsing";
-import { Movie } from "../Models/movie";
-import { Actor } from "../Models/actor";
+import Questions from "../Question/Questions";
+import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
+import { Movie } from "../../Models/movie";
+import { Actor } from "../../Models/actor";
+import "./App.css"
 
 function Home() {
   const [movies, setMovies] = useState([] as Movie[]);
@@ -52,7 +53,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="App">
       <h1>Your score : {score}</h1>
       <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
       {actor.name && movie.title ? (
