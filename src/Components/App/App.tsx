@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Questions from "../Question/Questions";
+import Welcome from "../Welcome/Welcome";
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
@@ -14,6 +15,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [timer, setTimer] = useState(0);
   const [didGameStart, setDidGameStart] = useState(false);
+  const [didGameEnd, setDidGameEnd] = useState(false);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -45,10 +47,6 @@ function App() {
     }
   }, [buffer]);
 
-  useEffect(() => {
-    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
-  }, [timer]);
-
   const handleAnswer = (userAnswerValue: boolean) => {
     if (answer === userAnswerValue) setScore(score + 10);
     var bufferTmp = [...buffer];
@@ -58,6 +56,11 @@ function App() {
     setMovie(new Movie());
   };
 
+  useEffect(() => {
+    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
+    if (!timer && didGameStart) setDidGameEnd(true);
+  }, [timer]);
+
   const startGame = () => {
     setDidGameStart(true);
     setTimer(60);
@@ -65,18 +68,8 @@ function App() {
 
   return (
     <div className="App">
-      {!didGameStart ? (
-        <div>
-          <h1>Welcome !</h1>
-          <p>
-            Welcome to the quizz ! You'll be asked a series of "Yes or No"
-            questions. Answer as many as you can in the allowed time ! Good luck
-            !
-          </p>
-          <button onClick={startGame}>Start the game !</button>
-        </div>
-      ) : null}
-      {actor.name && movie.title && didGameStart ? (
+      {!didGameStart ? <Welcome startGame={startGame} /> : null}
+      {actor.name && movie.title && didGameStart && !didGameEnd ? (
         <div>
           <h1>Your score : {score}</h1>
           <h2>{timer} seconds left</h2>
