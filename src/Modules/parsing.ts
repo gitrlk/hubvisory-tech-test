@@ -10,7 +10,7 @@ import { Actor } from "../Models/actor";
 import { Movie } from "../Models/movie";
 
 export const getAllMovies = async () => {
-  const pageQuantity = 15;
+  const pageQuantity = 50;
   var allMovies: any = [];
 
   for (let i = 0; i < pageQuantity; i++) {
@@ -55,13 +55,12 @@ export const getSaneMovie = async (
   var moviesTmp = [...movies];
 
   while (!movie.id) {
-    let i = 0;
     const randomIndex = Math.floor(Math.random() * moviesTmp.length);
 
     movie = await getMovieData(moviesTmp[randomIndex]);
+
     if (!isMovieSane(movie)) movie = new Movie();
     moviesTmp.splice(randomIndex, 1);
-    i++;
   }
   setMovies(moviesTmp);
 
@@ -85,11 +84,9 @@ export const getMovieData = async (movie: Movie): Promise<Movie> => {
   movieData.castIdList = castIdList;
   movieData.id = movie.id;
   movieData.title = movie.title;
-
-  movieData.posterPath = posterPaths[0].file_path;
-
-  movieData.actor = await getActorData(movieData.castIdList[0]);
-
+  movieData.posterPath = !posterPaths.length ? null : posterPaths[0].file_path;
+  if (movieData.castIdList.length)
+    movieData.actor = await getActorData(movieData.castIdList[0]);
   return movieData;
 };
 
