@@ -3,15 +3,17 @@ import Questions from "../Question/Questions";
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
-import "./App.css"
+import "./App.css";
 
-function Home() {
+function App() {
   const [movies, setMovies] = useState([] as Movie[]);
   const [movie, setMovie] = useState(new Movie());
   const [actor, setActor] = useState(new Actor());
   const [answer, setAnswer] = useState(false);
   const [buffer, setBuffer] = useState([] as Movie[]);
   const [score, setScore] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const [didGameStart, setDidGameStart] = useState(false);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -43,6 +45,10 @@ function Home() {
     }
   }, [buffer]);
 
+  useEffect(() => {
+    timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
+  }, [timer]);
+
   const handleAnswer = (userAnswerValue: boolean) => {
     if (answer === userAnswerValue) setScore(score + 10);
     var bufferTmp = [...buffer];
@@ -52,15 +58,34 @@ function Home() {
     setMovie(new Movie());
   };
 
+  const startGame = () => {
+    setDidGameStart(true);
+    setTimer(60);
+  };
+
   return (
     <div className="App">
-      <h1>Your score : {score}</h1>
-      <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
-      {actor.name && movie.title ? (
-        <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
+      {!didGameStart ? (
+        <div>
+          <h1>Welcome !</h1>
+          <p>
+            Welcome to the quizz ! You'll be asked a series of "Yes or No"
+            questions. Answer as many as you can in the allowed time ! Good luck
+            !
+          </p>
+          <button onClick={startGame}>Start the game !</button>
+        </div>
+      ) : null}
+      {actor.name && movie.title && didGameStart ? (
+        <div>
+          <h1>Your score : {score}</h1>
+          <h2>{timer} seconds left</h2>
+          <h1>{answer ? "MATCHING" : "NOT MATCHING"}</h1>
+          <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
+        </div>
       ) : null}
     </div>
   );
 }
 
-export default Home;
+export default App;
