@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Questions from "../Question/Questions";
+import GameOver from "../GameOver/GameOver";
 import Welcome from "../Welcome/Welcome";
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 import { Movie } from "../../Models/movie";
@@ -66,6 +67,18 @@ function App() {
     setTimer(60);
   };
 
+  const playAgain = () => {
+    var bufferTmp = [...buffer];
+    bufferTmp.splice(0, 2);
+    setBuffer(bufferTmp);
+    setMovie(new Movie());
+    setActor(new Actor());
+    setAnswer(false);
+    setDidGameEnd(false)
+    setScore(0);
+    setTimer(60);
+  };
+
   return (
     <div className="App">
       {!didGameStart ? <Welcome startGame={startGame} /> : null}
@@ -77,6 +90,7 @@ function App() {
           <Questions handleAnswer={handleAnswer} actor={actor} movie={movie} />
         </div>
       ) : null}
+      {didGameEnd ? <GameOver playAgain={playAgain} score={score} /> : null}
     </div>
   );
 }
