@@ -16,7 +16,7 @@ function Questions(
     <div>
       {actor && movie ? (
         <div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <img src={imageBaseUrl + movie.posterPath} alt="movie"></img>
             <img
               src={imageBaseUrl + actor.profilePicturePath}
