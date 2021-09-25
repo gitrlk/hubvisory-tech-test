@@ -59,8 +59,10 @@ export const getSaneMovie = async (
 
     movie = await getMovieData(moviesTmp[randomIndex]);
 
-    if (!isMovieSane(movie)) movie = new Movie();
-    moviesTmp.splice(randomIndex, 1);
+    if (!isMovieSane(movie)) {
+      movie = new Movie();
+      moviesTmp.splice(randomIndex, 1);
+    }
   }
   setMovies(moviesTmp);
 
