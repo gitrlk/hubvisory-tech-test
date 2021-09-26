@@ -30,7 +30,7 @@ export const fillMovieBuffer = async (
 ) => {
   var bufferTmp = [...buffer];
   var bufferItem: Movie = new Movie();
-
+  
   if (buffer.length === 0) {
     bufferItem = await getSaneMovie(setMovies, movies);
     bufferTmp.push(bufferItem);
@@ -40,7 +40,7 @@ export const fillMovieBuffer = async (
     while (!bufferItem.id) {
       bufferItem = await getSaneMovie(setMovies, movies);
       if (!(await compareMovieActors(buffer[0], bufferItem)))
-        bufferItem = new Movie();
+      bufferItem = new Movie();
     }
     bufferTmp.push(bufferItem);
     setBuffer(bufferTmp);
@@ -94,14 +94,12 @@ export const getMovieData = async (movie: Movie): Promise<Movie> => {
 
 export const getActorData = async (actorId: number) => {
   let actorData: Actor = new Actor();
-
   actorData.name = await getActorName(actorId);
   const pictures = await getActorPhotos(actorId);
   if (pictures.length) {
     const picturesTmp = pictures.map((object: any) => object.file_path);
     actorData.profilePicturePath = picturesTmp[0];
   } else actorData.profilePicturePath = null;
-
   return actorData;
 };
 

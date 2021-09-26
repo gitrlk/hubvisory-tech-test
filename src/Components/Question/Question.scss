@@ -1,0 +1,44 @@
+.question__wrapper {
+  display: "flex";
+  justify-content: "center";
+}
+.images {
+  width: 155px;
+  height: auto;
+  max-width: 100%;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.question__button {
+  padding: 1rem;
+  padding: 1rem;
+  font-size: 2rem;
+  border: 1px solid transparent;
+  -webkit-transition: all 0.4s cubic-bezier(0.5, 0.24, 0, 1);
+  transition: all 0.4s cubic-bezier(0.5, 0.24, 0, 1);
+  cursor: pointer;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  color: #FFF;
+}
+
+.question__button:active{
+  color: black;
+  transition: all 0s !important;
+}
+
+.question__button:hover {
+  opacity: 0.65;
+  transition: all 0.2s ease-in;
+}
+
+.question__text {
+  height: 4rem;
+}

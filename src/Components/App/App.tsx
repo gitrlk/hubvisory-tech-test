@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import Questions from "../Question/Questions";
+import Question from "../Question/Question";
 import GameOver from "../GameOver/GameOver";
 import Welcome from "../Welcome/Welcome";
 import SessionInfos from "../SessionInfos/SessionInfos";
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
-import "./App.css";
+import "./App.scss";
 
-const highScoreFromLocalStorage = localStorage.getItem('highScore') || 0
+const highScoreFromLocalStorage = localStorage.getItem("highScore") || 0;
 
 function App() {
   const [movies, setMovies] = useState([] as Movie[]);
@@ -57,21 +57,19 @@ function App() {
     var bufferTmp = [...buffer];
     bufferTmp.splice(0, 2);
     setBuffer(bufferTmp);
-};
+  };
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (!timer && didGameStart) {
       setDidGameEnd(true);
-      if (!highScore)
-      {
+      if (!highScore) {
         setHighScore(score);
-        localStorage.setItem('highScore', JSON.stringify(score))
-      } 
-      else if (highScore) {
-        if (score > highScore){
-          setHighScore(score)
-          localStorage.setItem('highScore', JSON.stringify(score))
+        localStorage.setItem("highScore", JSON.stringify(score));
+      } else if (highScore) {
+        if (score > highScore) {
+          setHighScore(score);
+          localStorage.setItem("highScore", JSON.stringify(score));
         } else {
           setHighScore(highScore);
         }
