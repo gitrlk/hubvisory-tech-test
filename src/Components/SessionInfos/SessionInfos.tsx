@@ -1,5 +1,5 @@
 type SessionInfosProps = {
-    highScore: number;
+    highScore: number | string;
     score: number;
     timer: number;
   };  
@@ -7,9 +7,9 @@ type SessionInfosProps = {
 function SessionInfos({ score, highScore, timer }: SessionInfosProps) {
   return (
     <div>
-      {highScore ? <h1>Your high score : {highScore} </h1> : null}
-          <h2>Your score : {score}</h2>
-          <h3>{timer} seconds left</h3>
+      {highScore ? <h2>Your high score : {highScore} </h2> : null}
+          <h3>Your score : {score}</h3>
+          <h4>{timer} seconds left</h4>
     </div>
   );
 }
