@@ -65,10 +65,6 @@
     border-left: 1px solid #FFF;
     border-right: 1px solid #FFF;
   }
-  // .gameOver__button:active {
-  //   transition: all 150ms linear;
-  //   opacity: 0.75;
-  // }
   
   .floating {
     animation-name: floating;
@@ -89,3 +85,14 @@
     }
   }
   
+.socials:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.socials__container {
+  button {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
