@@ -6,6 +6,7 @@ import { UilTwitter } from "@iconscout/react-unicons";
 
 import "./GameOver.scss";
 
+
 type GameOverProps = {
   playAgain: () => void;
   score: number;
@@ -24,6 +25,7 @@ function GameOver({ playAgain, score, highScore }: GameOverProps) {
 
   const shareUrl = "https://rlk-actor-quiz.web.app/";
   const message = `I just scored ${score} on rlk's actor quiz app ! come and try to beat me ! :)`;
+
 
   return (
     <div className={classes}>
