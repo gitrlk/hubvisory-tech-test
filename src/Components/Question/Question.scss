@@ -1,7 +1,12 @@
 .question__wrapper {
-  display: "flex";
-  justify-content: "center";
+  opacity: 0;
+  transition: all 0.2s;
 }
+
+.show {
+  opacity: 1;
+}
+
 .images {
   width: 155px;
   height: auto;
@@ -26,10 +31,10 @@
   -khtml-user-select: none;
   user-select: none;
   background-color: transparent;
-  color: #FFF;
+  color: #fff;
 }
 
-.question__button:active{
+.question__button:active {
   color: black;
   transition: all 0s !important;
 }
