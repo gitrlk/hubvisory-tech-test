@@ -58,7 +58,7 @@ function App() {
           setActor(buffer[0].actor);
           setMovie(buffer[1]);
         }
-      }, 300)
+      }, 300);
     }
   }, [buffer]);
 
