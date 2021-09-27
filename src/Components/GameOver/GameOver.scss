@@ -20,13 +20,6 @@
      cursor: pointer;
   }
   
-//   .gameOver__button {
-//     border: 1px solid transparent;
-//     -webkit-transition: all 0.4s cubic-bezier(0.5, 0.24, 0, 1);
-//     transition: all 0.4s cubic-bezier(0.5, 0.24, 0, 1);
-//     cursor: pointer;
-//   }
-  
   .gameOver__button::before {
     content: "";
     position: absolute;
@@ -65,7 +58,7 @@
     border-left: 1px solid #FFF;
     border-right: 1px solid #FFF;
   }
-  
+
   .floating {
     animation-name: floating;
     animation-duration: 5s;
@@ -96,3 +89,13 @@
     padding-right: 0.5rem !important;
   }
 }
+
+.gameOver__wrapper {
+  opacity: 0;
+  transition: all 0.5s ease-in;
+}
+
+.show {
+  opacity: 1;
+}
+
