@@ -50,18 +50,18 @@ function Question({
               drag="x"
               dragConstraints={constraintsRef}
               onDragEnd={(event, info) => {
-                if (Math.abs(info.point.x) > 900) handleAnswer(false);
-                else if (Math.abs(info.point.x) < 50) handleAnswer(true);
+                if (info.offset.x > 300) handleAnswer(false);
+                else if (info.offset.x < -300) handleAnswer(true);
               }}
             >
               <img
-                className="images"
+                className="images actor"
                 src={imageBaseUrl + actor.profilePicturePath}
                 alt="actor"
                 draggable="false"
               ></img>
               <img
-                className="images"
+                className="images movie"
                 src={imageBaseUrl + movie.posterPath}
                 alt="movie"
                 draggable="false"
@@ -72,13 +72,13 @@ function Question({
             </p>
           </div>
           <button
-            className="question__button"
+            className="question__button yes"
             onClick={() => handleAnswer(true)}
           >
             YES
           </button>
           <button
-            className="question__button"
+            className="question__button no"
             onClick={() => handleAnswer(false)}
           >
             NO

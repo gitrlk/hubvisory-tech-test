@@ -22,6 +22,7 @@ function App() {
   const [movie, setMovie] = useState(new Movie());
   const [actor, setActor] = useState(new Actor());
   const [answer, setAnswer] = useState(false);
+  const [rightAnswer, setRightAnswer] = useState(false);
   const [buffer, setBuffer] = useState([] as Movie[]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(highScoreFromLocalStorage);
@@ -68,7 +69,13 @@ function App() {
       var bufferTmp = [...buffer];
       bufferTmp.splice(0, 2);
       setBuffer(bufferTmp);
-      if (answer === userAnswerValue) setScore(score + 10);
+      if (answer === userAnswerValue) {
+        setRightAnswer(true)
+        setScore(score + 10);
+      } else if (answer !== userAnswerValue && score) {
+        setRightAnswer(false)
+        setScore(score - 5);
+      }
     }
   };
 
@@ -116,8 +123,8 @@ function App() {
       {!didGameStart && !didGameEnd ? (
         <Welcome startGame={startGame} />
       ) : actor.name && movie.title && didGameStart && !didGameEnd ? (
-        <div>
-          <SessionInfos score={score} highScore={highScore} timer={timer} />
+        <div className="gameContent__wrapper">
+          <SessionInfos score={score} highScore={highScore} timer={timer} rightAnswer={rightAnswer} />
           <Question
             startTimer={startTimer}
             handleAnswer={handleAnswer}
