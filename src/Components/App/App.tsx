@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Loader from "react-loader-spinner";
 
 import { fillMovieBuffer, getAllMovies } from "../../Modules/parsing";
 
@@ -10,6 +9,8 @@ import SessionInfos from "../SessionInfos/SessionInfos";
 
 import { Movie } from "../../Models/movie";
 import { Actor } from "../../Models/actor";
+
+import Loader from "react-loader-spinner";
 
 import "./App.scss";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -27,7 +28,6 @@ function App() {
   const [timer, setTimer] = useState(0);
   const [didGameStart, setDidGameStart] = useState(false);
   const [didGameEnd, setDidGameEnd] = useState(false);
-
   const [fader, setFader] = useState(false);
 
   useEffect(() => {
@@ -118,6 +118,7 @@ function App() {
       ) : actor.name && movie.title && didGameStart && !didGameEnd ? (
         <div>
           <SessionInfos score={score} highScore={highScore} timer={timer} />
+
           <Question
             startTimer={startTimer}
             handleAnswer={handleAnswer}
