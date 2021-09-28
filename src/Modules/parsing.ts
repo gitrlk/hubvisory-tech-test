@@ -72,7 +72,7 @@ export const getSaneMovie = async (
 export const isMovieSane = (movie: Movie) => {
   var isSane = true;
 
-  if (!movie.actor.profilePicturePath) isSane = false;
+  if (!movie.actor.profilePicturePath || !movie.posterPath) isSane = false;
 
   return isSane;
 };
@@ -82,11 +82,12 @@ export const getMovieData = async (movie: Movie): Promise<Movie> => {
   const castObjects = await getCast(movie.id);
   const castIdList = castObjects.map((object: any) => object.id);
   const posterPaths = await getMoviePosters(movie.id);
+  const englishPosters = posterPaths.filter((poster: any) => poster.iso_639_1 === "en" || poster.iso_639 === "uk")
 
   movieData.castIdList = castIdList;
   movieData.id = movie.id;
   movieData.title = movie.title;
-  movieData.posterPath = !posterPaths.length ? null : posterPaths[0].file_path;
+  movieData.posterPath = !englishPosters.length ? null : englishPosters[0].file_path;
   if (movieData.castIdList.length)
     movieData.actor = await getActorData(movieData.castIdList[0]);
   return movieData;
