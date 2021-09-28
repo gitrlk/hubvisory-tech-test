@@ -50,15 +50,8 @@ function Question({
               drag="x"
               dragConstraints={constraintsRef}
               onDragEnd={(event, info) => {
-                if (Math.abs(info.point.x) <= 150) {
-                  animControls.start({ x: 0 });
-                  console.log("oh");
-                  handleAnswer(true);
-                } else {
-                  console.log("hey");
-                  handleAnswer(false);
-                  animControls.start({ x: info.point.x < 0 ? -200 : 200 });
-                }
+                if (Math.abs(info.point.x) > 900) handleAnswer(false);
+                else if (Math.abs(info.point.x) < 50) handleAnswer(true);
               }}
             >
               <img
