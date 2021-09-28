@@ -1,8 +1,10 @@
 import { Actor } from "../../Models/actor";
 import { Movie } from "../../Models/movie";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import "./Question.scss";
+
+import { useAnimation, motion } from "framer-motion";
 
 type QuestionProps = {
   handleAnswer: (answer: boolean) => void;
@@ -36,23 +38,42 @@ function Question({
     }, 500);
   }, [fader]);
 
+  const animControls = useAnimation();
+  const constraintsRef = useRef(null);
+
   return (
-    <div>
+    <div ref={constraintsRef}>
       {actor && movie ? (
         <div>
           <div className={classes}>
-            <div>
+            <motion.div
+              drag="x"
+              dragConstraints={constraintsRef}
+              onDragEnd={(event, info) => {
+                if (Math.abs(info.point.x) <= 150) {
+                  animControls.start({ x: 0 });
+                  console.log("oh");
+                  handleAnswer(true);
+                } else {
+                  console.log("hey");
+                  handleAnswer(false);
+                  animControls.start({ x: info.point.x < 0 ? -200 : 200 });
+                }
+              }}
+            >
               <img
                 className="images"
                 src={imageBaseUrl + actor.profilePicturePath}
                 alt="actor"
+                draggable="false"
               ></img>
               <img
                 className="images"
                 src={imageBaseUrl + movie.posterPath}
                 alt="movie"
+                draggable="false"
               ></img>
-            </div>
+            </motion.div>
             <p className="question__text">
               Did {actor.name} play in {movie.title} ?
             </p>
