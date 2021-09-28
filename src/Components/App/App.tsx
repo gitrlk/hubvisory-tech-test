@@ -118,7 +118,6 @@ function App() {
       ) : actor.name && movie.title && didGameStart && !didGameEnd ? (
         <div>
           <SessionInfos score={score} highScore={highScore} timer={timer} />
-
           <Question
             startTimer={startTimer}
             handleAnswer={handleAnswer}
