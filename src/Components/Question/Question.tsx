@@ -50,8 +50,8 @@ function Question({
               drag="x"
               dragConstraints={constraintsRef}
               onDragEnd={(event, info) => {
-                if (info.offset.x > 300) handleAnswer(false);
-                else if (info.offset.x < -300) handleAnswer(true);
+                if (info.offset.x > 50) handleAnswer(false);
+                else if (info.offset.x < -50) handleAnswer(true);
               }}
             >
               <img

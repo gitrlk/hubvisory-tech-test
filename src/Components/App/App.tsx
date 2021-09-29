@@ -64,7 +64,7 @@ function App() {
   }, [buffer]);
 
   const handleAnswer = (userAnswerValue: boolean) => {
-    if (buffer.length === 4) {
+    if (buffer.length >= 2) {
       !fader ? setFader(true) : setFader(false);
       var bufferTmp = [...buffer];
       bufferTmp.splice(0, 2);
